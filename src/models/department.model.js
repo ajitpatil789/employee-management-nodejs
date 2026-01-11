@@ -1,5 +1,7 @@
 "use strict";
 
+const { FOREIGNKEYS } = require("sequelize/lib/query-types");
+
 module.exports = (sequelize, DataTypes) => {
   const Department = sequelize.define(
     "Department",
@@ -23,6 +25,11 @@ module.exports = (sequelize, DataTypes) => {
       underscored: true,
     }
   );
+  Department.associate = (models) => {
+    Department.hasMany(models.Employee, {
+      foreignKey: "department_id",
+    });
+  };
 
   return Department;
 };

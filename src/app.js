@@ -1,6 +1,7 @@
 const express = require("express");
 const departmentRoutes = require("./routes/department.routes");
 const errorMiddleware = require("./middlewares/error.middleware");
+const employeeRoutes = require("./routes/employee.routes");
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/api/departments", departmentRoutes);
+app.use("/api/employees", employeeRoutes);
 
 // ❗ must be last
 app.use(errorMiddleware);
