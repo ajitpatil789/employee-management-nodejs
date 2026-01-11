@@ -2,7 +2,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("work_instructions", {
+    await queryInterface.createTable("work_instruction_steps", {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -11,25 +11,30 @@ module.exports = {
       uuid: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
-        allowNull: false,
         unique: true,
       },
-      client_id: {
+      instruction_version_id: {
         type: Sequelize.UUID,
+        allowNull: false,
+      },
+      title: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      description: {
+        type: Sequelize.TEXT,
+      },
+      sequence: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       is_active: {
         type: Sequelize.BOOLEAN,
         defaultValue: true,
       },
-      created_by: {
-        type: Sequelize.UUID,
-        allowNull: false,
-      },
-      updated_by: {
-        type: Sequelize.UUID,
-        allowNull: true,
-      },
+      client_id: Sequelize.UUID,
+      created_by: Sequelize.UUID,
+      updated_by: Sequelize.UUID,
       created_at: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn("NOW"),
@@ -42,6 +47,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable("work_instructions");
+    await queryInterface.dropTable("work_instruction_steps");
   },
 };
